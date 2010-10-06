@@ -1,11 +1,11 @@
-require '../lib/dieroller.rb'
+require '../lib/dicechucker.rb'
 require 'minitest/unit'
 require 'mocha'
 MiniTest::Unit.autorun
 
 
 class Test_Dice < MiniTest::Unit::TestCase
-  include Dieroller
+  include Dicechucker
 
   def setup
     Dice.any_instance.stubs(:rand => 0.5)
@@ -55,7 +55,7 @@ class Test_Dice < MiniTest::Unit::TestCase
 end
 
 class Test_Logic < MiniTest::Unit::TestCase
-  include Dieroller
+  include Dicechucker
 
   def test_dice_drop_low
     testroll = Dice.new(100, 6, 0)
