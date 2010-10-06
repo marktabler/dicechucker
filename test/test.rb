@@ -4,7 +4,7 @@ require 'mocha'
 MiniTest::Unit.autorun
 
 
-class Test_Dice < MiniTest::Unit::TestCase
+class TestDice < MiniTest::Unit::TestCase
   include Dicechucker
 
   def setup
@@ -54,7 +54,7 @@ class Test_Dice < MiniTest::Unit::TestCase
 
 end
 
-class Test_Logic < MiniTest::Unit::TestCase
+class TestLogic < MiniTest::Unit::TestCase
   include Dicechucker
 
   def test_dice_drop_low
