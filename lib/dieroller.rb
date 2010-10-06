@@ -1,4 +1,7 @@
 module Dieroller
+  class NotationError < ArgumentError
+  end
+  
   class Dice
     
     PATTERN = /^(?:(?<dice>\d+)d)?(?<size>\d+)(?<mod>[+\-]\d+)?$/
@@ -20,17 +23,17 @@ module Dieroller
     end
 
     def roll_english
-      dice = roll(true).pop  #knock off the modifier
+      dice = roll_dice
       total = dice.inject(:+) + @mod
       dice = dice.join(', ')
       if @mod > 0
-        mod_english = "plus #{@mod}"
+        mod_english = "plus #{@mod} "
       elsif @mod < 0
-        mod_english = "minus #{@mod}"
+        mod_english = "minus #{@mod.abs} "
       else
         mod_english = ''
       end
-      "rolled #{dice} #{mod_english} for a total of #{total}."
+      "rolled #{dice} #{mod_english}for a total of #{total}."
     end
         
     def self.parse(raw)
@@ -39,9 +42,9 @@ module Dieroller
         dice = Integer(match[:dice]) rescue 1
         size = Integer(match[:size]) 
         mod = Integer(match[:mod]) rescue 0
-        Dieroll.new(dice, size, mod)
+        Dice.new(dice, size, mod)
       else
-        raise ArgumentError "Invalid die notation, #{raw}."
+        raise NotationError.new "Invalid die notation, #{raw}"
       end
     end
 
@@ -52,7 +55,7 @@ module Dieroller
       if individual_rolls
         dice << @mod
       else
-        dice.inject(:+) + @mod
+        dice = dice.inject(:+) + @mod
       end
       dice
     end

@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 require './../lib/dieroller.rb'
 
-dice = Dieroller::Dice.parse(ARGV[0])
+begin
+  dice = Dieroller::Dice.parse(ARGV[0])
+  puts "You #{dice.roll_english}"
+rescue => err
+  abort "#{err} -- aborting."
+end
 
-puts "You #{dice.roll_english}"
