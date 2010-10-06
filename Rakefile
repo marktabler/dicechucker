@@ -10,7 +10,6 @@ begin
     gem.email = "mark.tabler@fallingmanstudios.net"
     gem.homepage = "http://github.com/marktabler/dicechucker"
     gem.authors = ["Mark Tabler"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_development_dependency "mocha", ">= 0"
   end
 
