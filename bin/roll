@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require File.expand_path('../../lib/dieroller.rb', __FILE__)
+
+begin
+  dice = Dieroller::Dice.parse(ARGV[0])
+  puts "You #{dice.roll_english}"
+rescue => err
+  abort "#{err} -- aborting."
+end
+

@@ -1,5 +1,4 @@
 require '../lib/dieroller.rb'
-require '../lib/game_logic.rb'
 require 'minitest/unit'
 require 'mocha'
 MiniTest::Unit.autorun
@@ -7,6 +6,10 @@ MiniTest::Unit.autorun
 
 class Test_Dice < MiniTest::Unit::TestCase
   include Dieroller
+
+  def setup
+    Dice.any_instance.stubs(:rand => 0.5)
+  end
   
   def test_dice_parse_single_implied
     first = Dice.new(1, 20, 0)
@@ -28,38 +31,24 @@ class Test_Dice < MiniTest::Unit::TestCase
   
   def test_dice_average_single
     testroll = Dice.new(1, 6, 0)
-    result = 0
-    100000.times do
-      result += testroll.roll
-    end
-    average = result / 100000.0
-    assert average > 3.2 and average < 3.7
+    assert_equal testroll.roll, 4
+    
   end
 
-  def test_dice_average_plural
+  def test_dice_roll_plural
     testroll = Dice.new(2, 6, 0)
-    result = 0
-    100000.times do
-      result += testroll.roll
-    end
-    average = result / 100000.0
-    assert average > 6.8 and average < 7.2
+    assert_equal testroll.roll, 8
   end
 
   def test_dice_average_plural_mod
     testroll = Dice.new(2, 6, 2)
-    result = 0
-    100000.times do
-      result += testroll.roll
-    end
-    average = result / 100000.0
-    assert average > 8.8 and average < 9.2
+    assert_equal testroll.roll, 10
   end
 
   def test_dice_roll_english
-    testroll = Dice.new(2, 1, -3)
+    testroll = Dice.new(2, 20, 4)
     result = testroll.roll_english
-    sample = 'rolled 1, 1 minus 3 for a total of -1.'
+    sample = 'rolled 11, 11 plus 4 for a total of 26.'
     assert_equal result, sample
   end
 
@@ -91,6 +80,4 @@ class Test_Logic < MiniTest::Unit::TestCase
     assert testroll.check_dc(40) == false
     assert testroll.check_dc(5) == true
   end
-  
-  
 end
