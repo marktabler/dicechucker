@@ -2,7 +2,7 @@ module Dicechucker
   module GameLogic
 
     def check_dc(dc)
-      if self.roll > dc
+      if self.roll >= dc
         true
       else
         false
