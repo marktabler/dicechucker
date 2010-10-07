@@ -3,6 +3,10 @@ Dicechucker
 
 Dicechucker is a die-rolling library for Ruby that accepts standard die notation (XdY+Z). It can return results either as an integer total, an array of individual die rolls plus the modifier, or as a string describing results in English.
 
+Installation
+------------
+Dicechucker is installed via a gem package: `gem install dicechucker`.
+
 Basic Usage
 -----------
 
