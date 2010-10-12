@@ -1,48 +1,31 @@
 require File.expand_path('../game_logic.rb', __FILE__)
 
 module Dicechucker
+  
   class Dice
     include GameLogic
+
     class NotationError < ArgumentError
     end
  
-    PATTERN = /^(?:(?<dice>\d+)d)?(?<size>\d+)(?<logic>[eEhHlL])?(?<mod>[+\-]\d+)?$/
+    PATTERN = /^(?:(?<dice>\d+)d)?(?<size>\d+)(?<mod>[+\-]\d+)?$/
 
-    attr_accessor :dice, :size, :mod, :logic
+    attr_accessor :dice, :size, :mod
 
     def self.parse(raw)
       if (match = raw.match(PATTERN))
         dice = Integer(match[:dice]) rescue 1
         size = Integer(match[:size]) 
         mod = Integer(match[:mod]) rescue 0
-        logic = String(match[:logic]) rescue nil
-        dieset = make_dice(dice, size, logic, mod)
-        dieset
+        Dice.new(dice, size, mod)
       else
         raise NotationError, "Invalid die notation, #{raw}"
       end
     end
-
-    def self.make_dice(dice, size, logic, mod)
-      case logic.upcase
-      when 'L'
-        return DiceDropLow.new(dice, size, logic, mod)
-      when 'H'
-        return DiceDropHigh.new(dice, size, logic, mod)
-      when 'E'
-        return DiceExplode.new(dice, size, logic, mod)
-      else logic = nil
-      end
-      if dice == 1 and mod == 0
-        return DiceSingle.new(dice, size, logic, mod)
-      end
-      return Dice.new(dice, size, logic, mod)
-    end
     
-    def initialize(dice, size, logic, mod)
+    def initialize(dice, size, mod)
       @dice = dice
       @size = size
-      @logic = logic
       @mod = mod
     end
 
@@ -66,7 +49,7 @@ module Dicechucker
     end
     
     def ==(other)
-      @dice == other.dice && @size == other.size && @logic == other.logic && @mod == other.mod
+      @dice == other.dice && @size == other.size && @mod == other.mod
     end
 
     private
@@ -84,20 +67,5 @@ module Dicechucker
       Array.new(@dice) { (rand * @size + 1).to_i }
     end
   end
-
-  class DiceDropLow < Dice
-  end
-
-  class DiceDropHigh < Dice
-  end
-
-  class DiceExplode < Dice
-  end
-
-  class DiceSingle < Dice
-  end
-  
-
 end
-
 
