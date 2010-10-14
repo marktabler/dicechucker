@@ -24,9 +24,6 @@ Basic Usage
 Please note that usage has changed significantly since the initial
 0.6.0 release:
 
-Manually set a generic Dice object (deprecated; use Dicechucker.parse instead):
-    foo = Dicechucker::Dice.new(number_of_dice, sides_on_die, modifier)
-
 Parse a string to make a Dice object:
     foo = Dicechucker.parse(XdYS+Z)
 
@@ -38,6 +35,10 @@ Rolling and getting results:
     bar = foo.modifier  #gives you only the modifier for the dieset
     foo.roll  # just rolls the dice
               # total, results, and report now have different output
+
+Please note that Dicechucker::Dice.new is deprecated. Dice is now a
+parent class that can still be created, but will probably not give you
+the results you're hoping for. Use Dicechucker.parse to create new diesets.
 
 Other Dice Behaviors:
 -------------------
@@ -97,8 +98,21 @@ be shortened greatly:
     warrior.add('HP', '1d10')
     puts warrior
 
-Diesheets are rolled automatically when created, when a dieset is
-added, and when a dieset is removed. 
+Finally, each dieset in a diesheet is individually addressable, so if
+you want to see what your warrior rolled for strength - or allow your
+warrior a strength re-roll, you kind GM, you - it's easy to do:
+    warrior['STR'].results  # => [2, 3, 2]
+    warrior['STR'].roll     # => Re-roll that garbage!
+    warrior.puts   # => Gives you the new STR roll and all the other
+                   # => unchanged results
+    
+
+Diesheets are rolled automatically when created. When a dieset is
+added, just that dieset is rolled. When a dieset is removed, nothing
+happens to the rest of the diesets in the diesheet. In other words,
+every dieset is instantiated with a rolled result, but if you want a
+fresh batch of results you'll need to call the .roll method on your 
+diesheet.
 
 
 Copyright

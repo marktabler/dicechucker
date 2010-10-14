@@ -28,6 +28,10 @@ module Dicechucker
       end
     end
 
+    def results
+      to_s
+    end
+        
     def to_s
       output = ""
       @diesets.each do |key, value|
