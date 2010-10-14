@@ -64,7 +64,10 @@ module Dicechucker
     end
 
     def ==(other)
-      @number_of_dice == other.number_of_dice && @sides == other.sides && @modifier == other.modifier && self.class == other.class
+      [@number_of_dice == other.number_of_dice,
+       @sides == other.sides,
+       @modifier == other.modifier,
+       self.class == other.class].all?
     end
 
     private
@@ -80,13 +83,7 @@ module Dicechucker
 
     def roll
       roll_dice
-      @results.each.with_index do |roll, index|
-        if roll == drop_target
-          @results.delete_at(index)
-          @dropped = roll
-          break
-        end
-      end
+      @dropped = @results.delete_at(@results.index(drop_target))
       @total = @results.inject(:+) + @modifier
     end
     
@@ -97,6 +94,7 @@ module Dicechucker
     end
 
     def drop_target
+      raise NotImplementedError, "drop_target must be overwritten by child classes"
       #defined only for use by subclasses
     end
         

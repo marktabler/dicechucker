@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 require File.expand_path('../../lib/dicechucker.rb', __FILE__)
-
 begin
-  dice = Dicechucker::Dice.parse(ARGV[0])
-  puts "You #{dice.roll_english}"
+  dice = Dicechucker::parse(ARGV[0])
+  puts "You #{dice.report}"
 rescue => err
   abort "#{err} -- aborting."
 end
