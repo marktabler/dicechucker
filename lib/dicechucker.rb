@@ -34,7 +34,6 @@ module Dicechucker
       return DiceDropHigh.new(dice, size, mod)
     when 'E'
       return DiceExplode.new(dice, size, mod)
-    else logic = nil
     end
     if dice == 1 and mod == 0
       return DieSingle.new(dice, size, mod)
