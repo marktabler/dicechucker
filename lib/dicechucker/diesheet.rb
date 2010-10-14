@@ -17,6 +17,10 @@ module Dicechucker
       roll
     end
 
+    def delete(key)
+      remove(key)
+    end
+        
     def remove(key)
       @diesets[key].delete
       roll

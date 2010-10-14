@@ -1,40 +1,4 @@
 module Dicechucker
-
-  class NotationError < ArgumentError
-  end
-  
-  PATTERN = /^(?:(?<dice>\d+)d)?(?<size>\d+)(?<logic>[eEhHlL])?(?<mod>[+\-]\d+)?$/
-  
-  def self.parse(raw, reportstyle = :total_only)
-    if (match = raw.match(PATTERN))
-      dice = Integer(match[:dice]) rescue 1
-      size = Integer(match[:size]) 
-      mod = Integer(match[:mod]) rescue 0
-      logic = String(match[:logic]) rescue nil
-      dieset = make_dice(dice, size, logic, mod)
-      dieset.roll
-      dieset
-    else
-      raise NotationError, "Invalid die notation, #{raw}"
-    end
-  end
-  
-  def self.make_dice(dice, size, logic, mod)
-    case logic.upcase
-    when 'L'
-      return DiceDropLow.new(dice, size, mod)
-    when 'H'
-      return DiceDropHigh.new(dice, size, mod)
-    when 'E'
-      return DiceExplode.new(dice, size, mod)
-    else logic = nil
-    end
-    if dice == 1 and mod == 0
-      return DieSingle.new(dice, size, mod)
-    end
-    return Dice.new(dice, size, mod)
-  end
-  
   
   class Dice
     attr_accessor :number_of_dice, :sides, :modifier, :results, :total
