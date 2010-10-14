@@ -3,7 +3,7 @@ module Dicechucker
   class Diesheet
     attr_accessor :diesets, :results
 
-    def initialize(diesets)
+    def initialize(diesets = {})
       @diesets = {}
       @results = {}
       diesets.each do |key, value|
@@ -12,6 +12,16 @@ module Dicechucker
       end
     end
 
+    def add(key, dieset)
+      @diesets[key] = Dicechucker.parse(dieset)
+      roll
+    end
+
+    def remove(key)
+      @diesets[key].delete
+      roll
+    end
+    
     def roll
       @diesets.each do |key, value|
         @results[key] = @diesets[key].roll
