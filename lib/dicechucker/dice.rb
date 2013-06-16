@@ -1,8 +1,8 @@
 module Dicechucker
-  
+
   class Dice
     attr_accessor :number_of_dice, :sides, :modifier, :results, :total
-    
+
     def initialize(dice, sides, modifier)
       @number_of_dice = dice
       @sides = sides
@@ -39,9 +39,9 @@ module Dicechucker
     def roll_dice
       @results = Array.new(@number_of_dice) { (rand * @sides + 1).to_i}
     end
-    
+
   end
-  
+
   class DiceDropper < Dice
     attr_accessor :dropped
 
@@ -50,7 +50,7 @@ module Dicechucker
       @dropped = @results.delete_at(@results.index(drop_target))
       @total = @results.inject(:+) + @modifier
     end
-    
+
     def report
       rep = super
       rep << " Dropped #{@dropped}."
@@ -61,9 +61,9 @@ module Dicechucker
       raise NotImplementedError, "drop_target must be overwritten by child classes"
       #defined only for use by subclasses
     end
-        
+
   end
-  
+
   class DiceDropLow < DiceDropper
     def drop_target
       @results.min
@@ -75,7 +75,7 @@ module Dicechucker
       @results.max
     end
   end
-  
+
   class DiceExplode < Dice
     def roll
       roll_dice
@@ -94,7 +94,5 @@ module Dicechucker
       "rolled #{@total}."
     end
   end
-  
-end
 
- 
+end

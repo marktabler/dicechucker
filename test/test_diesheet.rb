@@ -31,7 +31,6 @@ class TestDice < MiniTest::Unit::TestCase
     assert_equal dummy_dice['Second'], nil
     assert_equal dummy_dice['First'].class, Dice
   end
-  
 
   def test_diesheet_accessibility
     warrior_dice = Diesheet.new
@@ -49,13 +48,11 @@ class TestDice < MiniTest::Unit::TestCase
     dummydice = Diesheet.new('First' => '1d6', 'Second' => '1d6')
     dummydice.roll
   end
-  
+
   def test_diesheet_to_s
     dummydice = Diesheet.new('First' => '1d6', 'Second' => '2d6')
     output = dummydice.to_s
     assert_equal output.class, String
   end
-  
-  
-  
+
 end

@@ -8,22 +8,22 @@ class TestDice < MiniTest::Unit::TestCase
   end
 
   def teardown
-    
+
   end
-  
-  
+
+
   def test_dice_parse_single_explicit
     first = DieSingle.new(1, 20, 0)
     second = Dicechucker.parse('1d20')
     assert_equal first, second
   end
-  
+
   def test_dice_parse_single_implied
     first = DieSingle.new(1, 20, 0)
     second = Dicechucker.parse('20')
     assert first == second
   end
-  
+
   def test_dice_parse_instructions
     exploder = Dicechucker.parse('6d10E')
     drop_low = Dicechucker.parse('4d6L')
@@ -44,7 +44,7 @@ class TestDice < MiniTest::Unit::TestCase
     second = Dicechucker.parse('300d5000+2000')
     assert_equal first, second
   end
-  
+
   def test_die_roll_single
     testroll = Dice.new(1, 6, 0)
     testroll.stubs(:rand => 0.5)
@@ -89,4 +89,3 @@ class TestDice < MiniTest::Unit::TestCase
   end
 
 end
-

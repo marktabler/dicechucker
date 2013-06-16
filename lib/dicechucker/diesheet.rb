@@ -21,7 +21,7 @@ module Dicechucker
     def remove(key)
       @diesets.delete(key)
     end
-    
+
     def roll
       @diesets.each_value do |value|
         value.roll
@@ -31,7 +31,7 @@ module Dicechucker
     def results
       to_s
     end
-        
+
     def to_s
       output = ""
       @diesets.each do |key, value|
