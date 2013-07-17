@@ -5,7 +5,7 @@ Dicechucker is a die-rolling library for Ruby that accepts standard
 dice notation (XdYS+Z). S is a fairly new pattern for dice notation
 that refers to special instructions; typically this is either L for
 'drop low' or H for 'drop high'. Dicechucker also supports E for
-'explode'. 
+'explode'.
 
 Dicechucker also supports Diesheets, which are collections of diesets
 that can be rolled together. For example, a standard d20 first-level
@@ -44,7 +44,7 @@ Other Dice Behaviors:
 -------------------
 
 Dicechucker imbeds special instructions into the dieset, so that you
-don't need to do anything except .roll the dice. 
+don't need to do anything except .roll the dice.
 
 Examples
 ------
@@ -63,7 +63,7 @@ To get a plain English result:
 
 To roll 4d6+0 and drop the low die (results assume 3, 4, 5, 6 rolled):
     easy_stat_dice = Dicechucker.parse('4d6L')
-    stat = easy_stat_dice.roll  # => 15 
+    stat = easy_stat_dice.roll  # => 15
 
 If you want to see what the dropped die was:
     easy_stat_dice.dropped # => 3
@@ -71,7 +71,7 @@ If you want to see what the dropped die was:
 Diesheets:
 ----------
 
-Diesheets are hash-based for your dice-chucking convenience. 
+Diesheets are hash-based for your dice-chucking convenience.
 
 To set up a die sheet for a standard d20 warrior:
     warrior = Dicechucker::Diesheet.new({
@@ -82,7 +82,7 @@ To set up a die sheet for a standard d20 warrior:
         "WIS" => "4d6L"
         "CHA" => "4d6L"
         "HP"  => "1d10" })
-    puts warrior  
+    puts warrior
         # Gives you the results...
         #STR = 14
         #DEX = 12
@@ -105,13 +105,13 @@ warrior a strength re-roll, you kind GM, you - it's easy to do:
     warrior['STR'].roll     # => Re-roll that garbage!
     warrior.puts   # => Gives you the new STR roll and all the other
                    # => unchanged results
-    
+
 
 Diesheets are rolled automatically when created. When a dieset is
 added, just that dieset is rolled. When a dieset is removed, nothing
 happens to the rest of the diesets in the diesheet. In other words,
 every dieset is instantiated with a rolled result, but if you want a
-fresh batch of results you'll need to call the .roll method on your 
+fresh batch of results you'll need to call the .roll method on your
 diesheet.
 
 
